@@ -67,8 +67,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                    <c:forEach var="task" items="${tasks}">
-                        <tag:taskRow task="${task}"/>
+                    <c:forEach var="task" items="${tasks}" varStatus="iter">
+                        <tag:taskRow task="${task}" id="${iter.index+1}"/>
                     </c:forEach>
                 </tbody>
             </table>
