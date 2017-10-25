@@ -1,6 +1,6 @@
-package com.sda.demo.task.facade;
+package com.sda.demo.tasks.facade;
 
-import com.sda.demo.task.model.Task;
+import com.sda.demo.tasks.model.Task;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -9,24 +9,24 @@ import java.util.List;
 @Component
 public class TaskGenerator {
 
-    //generator taskow
     public List<Task> generateTasks() {
 
         List<Task> tasks = new ArrayList<>();
 
         Task task = new Task();
-        task.setName("Task 1");
-        task.setComment("Task 1 comment");
+        task.setName("task 1");
+        task.setComment("task 1 comment");
         task.setPriority(1);
 
-        Task task1 = new Task();
-        task1.setName("Task 2");
-        task1.setComment("Task 2 comment");
-        task1.setPriority(2);
+        Task task2 = new Task();
+        task2.setName("task 2");
+        task2.setComment("task 2 comment");
+        task2.setPriority(2);
 
         tasks.add(task);
-        tasks.add(task1);
+        tasks.add(task2);
 
         return tasks;
     }
+
 }

@@ -1,4 +1,4 @@
-package com.sda.demo.task.model;
+package com.sda.demo.tasks.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -12,10 +12,15 @@ public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String name;
+
     private String comment;
+
     private Integer priority;
+
     private LocalDateTime deadline;
+
     private LocalDateTime dateCreated;
 
     public Long getId() {

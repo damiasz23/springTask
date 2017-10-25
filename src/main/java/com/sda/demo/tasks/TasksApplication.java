@@ -1,12 +1,12 @@
-package com.sda.demo.task;
+package com.sda.demo.tasks;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class TaskApplication {
+public class TasksApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TaskApplication.class, args);
+		SpringApplication.run(TasksApplication.class, args);
 	}
 }

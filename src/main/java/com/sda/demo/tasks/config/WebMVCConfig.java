@@ -1,4 +1,4 @@
-package com.sda.demo.task.config;
+package com.sda.demo.tasks.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -20,14 +20,10 @@ public class WebMVCConfig extends WebMvcConfigurerAdapter {
         return bean;
     }
 
-    /*metoda pozwalajaca pobierac zasoby z zewnatrz
-    * oraz
-    * do zainicjalizowania bootstrapa
-    * jak tego nie dodamy to pokaze #404*/
     @Override
-    public void addResourceHandlers(ResourceHandlerRegistry resourceHandlerRegistry) {
-        resourceHandlerRegistry.
-                addResourceHandler("/resources/**"). //pobieramy zasoby
-                addResourceLocations("/resources/"); //zostawiamy zasoby
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
     }
+
 }

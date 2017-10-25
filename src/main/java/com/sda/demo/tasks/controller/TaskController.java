@@ -1,8 +1,9 @@
-package com.sda.demo.task.controller;
+package com.sda.demo.tasks.controller;
 
-import com.sda.demo.task.facade.TaskFacade;
-import com.sda.demo.task.facade.TaskGenerator;
-import com.sda.demo.task.model.Task;
+import com.sda.demo.tasks.facade.TaskFacade;
+import com.sda.demo.tasks.facade.TaskGenerator;
+import com.sda.demo.tasks.model.Task;
+import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +15,6 @@ import java.util.List;
 @Controller
 public class TaskController {
 
-    //wstrzykujemy TaskFacade - zawsze adnotacja @autowired jak chcesz coś "wstrzyknac"
     @Autowired
     private TaskFacade taskFacade;
 
@@ -27,8 +27,15 @@ public class TaskController {
         return modelAndView;
     }
 
-    //teraz tzw "end point" aby wywolac nasz generator taskow
-    @RequestMapping("/generateData")  //mapowanie na tworzenie Taskow
+    @RequestMapping("/tasks")
+    public ModelAndView getTasks(ModelAndView modelAndView) {
+        List<Task> tasks = taskFacade.findAll();
+        modelAndView.addObject("tasks",tasks);
+        modelAndView.setViewName("list");
+        return modelAndView;
+    }
+
+    @RequestMapping("/generateData")
     @ResponseBody
     public String generateData() {
         List<Task> tasks = taskGenerator.generateTasks();
@@ -36,13 +43,5 @@ public class TaskController {
             taskFacade.save(task);
         }
         return "Data generated";
-    }
-
-    @RequestMapping("/tasks")
-    public ModelAndView getTask(ModelAndView modelAndView) {
-        List<Task> tasks = taskFacade.findAll();
-        modelAndView.addObject("tasks", tasks);
-        modelAndView.setViewName("list");
-        return modelAndView;
     }
 }
