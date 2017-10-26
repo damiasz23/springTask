@@ -52,6 +52,13 @@ public class TaskController {
         taskFacade.save(task);
         return prepareTaskList(modelAndView);
     }
+    @RequestMapping("/edit")
+    public ModelAndView editTask(@RequestParam("id") String id, ModelAndView modelAndView){
+        Task task = taskFacade.findTaskById(Long.parseLong(id));
+        modelAndView.addObject("task", task);
+        modelAndView.setViewName("taskForm");
+        return modelAndView;
+    }
 
     @RequestMapping("/generateData")
     @ResponseBody
