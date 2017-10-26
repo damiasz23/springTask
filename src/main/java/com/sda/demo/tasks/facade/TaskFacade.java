@@ -15,21 +15,21 @@ public class TaskFacade {
     private TaskRepository taskRepository;
 
     public List<Task> findAll() {
-        return (List<Task>)taskRepository.findAll();
+        return taskRepository.findAll();
     }
 
     public void save(Task task) {
-        if(task.getDateCreated()==null){
-//            task.setDateCreated(new Date());
+        if (task.getDateCreated() == null) {
+            task.setDateCreated(new Date());
         }
         taskRepository.save(task);
     }
 
-    public Task findTaskById(Long id){
+    public Task findTaskById(Long id) {
         return taskRepository.findOne(id);
     }
 
-    public void deleteTask(Long id){
+    public void deleteTask(Long id) {
         taskRepository.delete(id);
     }
 }

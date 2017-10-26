@@ -5,6 +5,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 public class Task {
@@ -21,7 +22,7 @@ public class Task {
 
     private LocalDateTime deadline;
 
-    private LocalDateTime dateCreated;
+    private Date dateCreated;
 
     public Long getId() {
         return id;
@@ -63,11 +64,11 @@ public class Task {
         this.deadline = deadline;
     }
 
-    public LocalDateTime getDateCreated() {
+    public Date getDateCreated() {
         return dateCreated;
     }
 
-    public void setDateCreated(LocalDateTime dateCreated) {
+    public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
     }
 }

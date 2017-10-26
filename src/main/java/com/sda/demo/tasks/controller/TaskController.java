@@ -5,7 +5,6 @@ import com.sda.demo.tasks.facade.TaskGenerator;
 import com.sda.demo.tasks.model.Task;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -31,9 +30,27 @@ public class TaskController {
     @RequestMapping("/tasks")
     public ModelAndView getTasks(ModelAndView modelAndView) {
         List<Task> tasks = taskFacade.findAll();
-        modelAndView.addObject("tasks",tasks);
-        modelAndView.setViewName("list");
+        return prepareTaskList(modelAndView);
+    }
+
+    @RequestMapping("/new")
+    public ModelAndView newTaskForm(ModelAndView modelAndView) {
+        modelAndView.addObject("task", new Task());
+        modelAndView.setViewName("taskForm");
         return modelAndView;
+    }
+
+    @RequestMapping("/delete")
+    public ModelAndView deleteTask(@RequestParam("id") String id, ModelAndView modelAndView) {
+        Long taskId = Long.parseLong(id);
+        taskFacade.deleteTask(taskId);
+        return prepareTaskList(modelAndView);
+    }
+
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ModelAndView addNewTask(@Valid @ModelAttribute("task") Task task, ModelAndView modelAndView) {
+        taskFacade.save(task);
+        return prepareTaskList(modelAndView);
     }
 
     @RequestMapping("/generateData")
@@ -45,29 +62,8 @@ public class TaskController {
         }
         return "Data generated";
     }
-    @RequestMapping("/new")
-    public ModelAndView newTaskForm(ModelAndView modelAndView){
-        modelAndView.addObject("taks", new Task());
-        modelAndView.setViewName("taskForm");
-        return modelAndView;
-    }
-    @RequestMapping(value = "/add", method = RequestMethod.POST)
-    public ModelAndView addNewTask(@Valid @ModelAttribute("task") Task task,  ModelAndView modelAndView){
-        taskFacade.save(task);
-        modelAndView.addObject("tasks", taskFacade.findAll());
-        modelAndView.setViewName("list");
-        return modelAndView;
 
-    }
-
-    @RequestMapping("/delete")
-    public ModelAndView deleteTask(@RequestParam("id") String id, ModelAndView modelAndView){
-        Long taksId = Long.parseLong(id);
-        taskFacade.deleteTask(taksId);
-        return prepereTaskList(modelAndView);
-    }
-
-    private ModelAndView prepereTaskList(ModelAndView modelAndView){
+    private ModelAndView prepareTaskList(ModelAndView modelAndView) {
         modelAndView.addObject("tasks", taskFacade.findAll());
         modelAndView.setViewName("list");
         return modelAndView;
